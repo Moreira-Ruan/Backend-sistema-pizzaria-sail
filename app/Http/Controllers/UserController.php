@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
     {
         Log::info('Entrou no método index do UserController');
         try {
-            $users = User::select('id', 'name', 'email')->paginate(10);
+            $users = User::select('id', 'name', 'email', 'created_at')->paginate(10);
             return response()->json([
                 'status' => 200,
                 'mensagem' => 'Usuários encontrados com sucesso!',
@@ -26,11 +27,22 @@ class UserController extends Controller
         }
     }
 
+    public function me()
+    {
+        $user = Auth::user();
+
+        return [
+            'status' => 200,
+            'message' => 'Usuário logado!',
+            "usuario" => $user
+        ];
+    }
+
     public function store(UserCreateRequest $request)
     {
         Log::info('Entrou no método store do UserController');
         try {
-            $data = $request->validated();
+            $data = $request->all();
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
