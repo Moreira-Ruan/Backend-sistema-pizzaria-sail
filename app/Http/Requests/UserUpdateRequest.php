@@ -20,27 +20,28 @@ class UserUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    
+
     public function rules(): array
     {
         return [
             'name' => 'required|string|max:50',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->route('id'), // Permite o mesmo email para o próprio usuário
             'password' => [
-                'required',
+                'nullable', // Torna a senha opcional
                 'string',
                 'confirmed',
                 Password::min(8)
-                    ->letters() // Exige pelo menos uma letra 
-                    ->mixedCase() // Exige letras maiusculas e minusculas 
-                    ->numbers() //Exige pelo menos um numero 
-                    ->symbols() // Exige pelo menos um simbolo
-                    ->uncompromised(), // Verifica se a senha nao esta um listas publias de senhas comprometidas 
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
             ],
-            'password_confirmation' => 'required|same:password'
+            'password_confirmation' => 'nullable|same:password'
         ];
     }
-    
+
+
     public function messages()
     {
         return [

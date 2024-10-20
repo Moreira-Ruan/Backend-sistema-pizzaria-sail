@@ -93,9 +93,17 @@ class UserController extends Controller
                 ], 404);
             }
 
+            // Valida os dados do request
             $data = $request->validated();
+
+            // Remove os campos de senha do array de dados se não foram preenchidos
+            if (!$request->filled('password')) {
+                unset($data['password']);
+                unset($data['password_confirmation']);
+            }
+
             $user->update($data);
-            
+
             return response()->json([
                 'status' => 200,
                 'mensagem' => 'Usuário atualizado com sucesso!',
@@ -106,6 +114,7 @@ class UserController extends Controller
             return response()->json(['status' => 500, 'mensagem' => 'Erro interno do servidor'], 500);
         }
     }
+
 
     public function destroy(string $id)
     {
