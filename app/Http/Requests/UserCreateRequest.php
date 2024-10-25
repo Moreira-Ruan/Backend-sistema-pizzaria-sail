@@ -27,7 +27,7 @@ class UserCreateRequest extends FormRequest
             'name' => 'required|string|max:50',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => [
-                'required',
+                'nullable',
                 'string',
                 'confirmed',
                 Password::min(8)
@@ -37,7 +37,7 @@ class UserCreateRequest extends FormRequest
                     ->symbols()
                     ->uncompromised(),
             ],
-            'password_confirmation' => 'required|same:password'
+            'password_confirmation' => 'nullable|same:password'
         ];
     }
     
