@@ -252,11 +252,3 @@ O sistema faz uso de blocos `try-catch` para capturar erros e exceções, garant
 
 - **Logs:** São gravados no arquivo `storage/logs/laravel.log`.
 - **Exemplo de Log:** Cada vez que um método importante é executado, um log é gerado, como quando um usuário é cadastrado, atualizado ou deletado.
-
----
-
-## **Considerações Finais**
-
-Seguindo esta documentação, qualquer pessoa, mesmo com pouco conhecimento em APIs e Laravel, deve ser capaz de configurar e rodar o projeto corretamente. Certifique-se de seguir os passos com atenção, principalmente ao configurar o `.env` e as validações dos campos nas rotas.
-
----
