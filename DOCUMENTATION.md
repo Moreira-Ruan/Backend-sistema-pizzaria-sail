@@ -31,6 +31,10 @@ Para instalar o Laravel globalmente, execute:
 ```bash
 composer global require laravel/installer
 ```
+Caso ao executar o comando acima você encontre um erro relacionado à extensão zip, isso geralmente acontece porque a extensão zip do PHP não está habilitada. Para resolver isso, siga os passos abaixo:
+- Abra o arquivo php.ini (geralmente encontrado em C:\laragon\bin\php\php-x.x.x\php.ini se estiver usando Laragon).
+- Procure pela linha ;extension=zip e descomente-a, removendo o ponto e vírgula ; para ficar assim:
+extension=zip
 
 Verifique se a instalação foi bem-sucedida com o comando:
 
@@ -81,6 +85,17 @@ PASSPORT_CLIENT_ID=seu_client_id
 PASSPORT_CLIENT_SECRET=sua_client_secret
 JWT_SECRET=sua_jwt_secret
 ```
+Caso você queira usar o SQLite como banco de dados, altere a configuração de banco de dados para:
+```plaintext
+DB_CONNECTION=sqlite
+DB_DATABASE=/caminho/para/o/seu/database.sqlite
+```
+Certifique-se de que o arquivo SQLite (database.sqlite) exista no caminho especificado. Se você estiver usando o Laragon, o caminho típico seria:
+DB_DATABASE=C:\laragon\www\projeto\database\database.sqlite
+
+Caso não tenha o arquivo (database.sqlite) basta criar o arquivo dentro da pasta storage.
+
+### ** Lembre-se de descomentar a linha ;extension=pdo_sqlite no arquivo php.ini, remova o ponto e vírgula e vai ficar assim: extension=pdo_sqlite **
 
 ### **7. Gerando o JWT_SECRET**
 Para gerar o JWT secret, execute o comando abaixo:
